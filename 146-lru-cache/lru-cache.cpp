@@ -56,9 +56,12 @@ public:
     }
 
     int deleteLRU(){
+        Node *nodeToBeDeleted = head->next;
+
         int key = head->next->key;
-        head->next = head->next->next;
+        head->next = nodeToBeDeleted->next;
         head->next->prev = head;
+        delete(nodeToBeDeleted);
         return key;
     }
 
