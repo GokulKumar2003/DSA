@@ -9,10 +9,11 @@ public:
         }
         vector<int> dis(n,INT_MAX);
         dis[0]=0;
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        pq.push({dis[0],0});
-        while(!pq.empty()){
-            pair<int,int> topi = pq.top();pq.pop();
+        set<pair<int, int>> st;
+        st.insert({dis[0],0});
+        while(st.size()){
+            pair<int,int> topi = *(st.begin());
+            st.erase(*st.begin());
 
             int currver = topi.second;
             int dist = topi.first;
@@ -23,7 +24,7 @@ public:
                 if(dis[mp[currver][i].first] > dist + mp[currver][i].second){
                     if(disappear[mp[currver][i].first] > dist + mp[currver][i].second){
                         dis[mp[currver][i].first] = dist + mp[currver][i].second;
-                        pq.push({dis[mp[currver][i].first],mp[currver][i].first});
+                        st.insert({dis[mp[currver][i].first],mp[currver][i].first});
                     }
                 }
             }
