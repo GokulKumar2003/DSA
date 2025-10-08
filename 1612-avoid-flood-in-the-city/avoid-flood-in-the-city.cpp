@@ -5,7 +5,7 @@ public:
         map<int, int> m;
         set<int> st;
 
-        vector<int> ans = rains;
+        vector<int> ans(rains.size(), 1);
 
         for(int i=0;i<rains.size();i++){
             if(rains[i]){
@@ -30,11 +30,6 @@ public:
             
         }
        
-       for(int i=0;i<ans.size();i++){
-        if(ans[i] == 0){
-            ans[i] = 1;
-        }
-       }
         return ans;      
     }
 };
