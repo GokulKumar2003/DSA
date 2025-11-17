@@ -2,16 +2,30 @@ class Solution {
 public:
     int minLengthAfterRemovals(string s) {
         
-        int a = 0, b = 0;
+        // int a = 0, b = 0;
+        // for(char c:s){
+        //     if(c == 'a'){
+        //         a++;
+        //     }
+        //     else{
+        //         b++;
+        //     }
+        // }
+
+        // return abs(a-b);
+        stack<char> st;
         for(char c:s){
-            if(c == 'a'){
-                a++;
+            if(st.size()==0){
+                st.push(c);
+            }
+            else if(st.top() != c){
+                st.pop();
             }
             else{
-                b++;
+                st.push(c);
             }
         }
 
-        return abs(a-b);
+        return st.size();
     }
 };
