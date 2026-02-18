@@ -1,17 +1,31 @@
 class Solution {
 public:
-    int solve(int l, int r, string& s, vector<vector<int>>& dp){
-        if(l>=r){
-            return 0;
+    bool isPalindrome(string& s, int l, int r){
+        while(l<=r){
+            if(s[l] != s[r]){
+                return false;
+            }
+            l++;
+            r--;
         }
-        int ans = 0;
-        if(dp[l][r] != -1){
-            return dp[l][r];
+        return true;
+    }
+    bool isAlmostPalindrome(string& s, int l, int r){
+        while(l<=r){
+            if(s[l] == s[r]){
+                l++;
+                r--;
+            }
+            else{
+                if(isPalindrome(s, l+1, r) || isPalindrome(s, l, r-1)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
         }
-        if(s[l] == s[r]){
-            return dp[l][r] = solve(l+1, r-1, s, dp);
-        }
-        return dp[l][r] = 1 + min(solve(l+1, r, s, dp), solve(l, r-1, s, dp));
+        return true;
     }
     int almostPalindromic(string s) {
         
@@ -20,7 +34,7 @@ public:
         for(int i=0;i<s.length();i++){
             for(int j=i;j<s.length();j++){
                 int len = j-i+1;
-                if(len >=2 && solve(i, j, s, dp) <= 1){
+                if(len > ans && len >=2 && isAlmostPalindrome(s, i, j)){
                     ans = max(ans, len);
                 }
             }
